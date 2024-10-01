@@ -1,5 +1,10 @@
 package gui;
 
+import gui.overview.OverviewPanel;
+import gui.profile.ProfilePanel;
+import gui.settings.SettingsPanel;
+import gui.single_input.SingleInputPanel;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -7,7 +12,7 @@ public class GUI {
 
     JFrame frame;
 
-
+    private JPanel currentlyDisplayed;
 
     public GUI() {
         frame = new JFrame("Notenplaner 12G9");
@@ -50,19 +55,30 @@ public class GUI {
 
     private void switchToOverview() {
         System.out.println("switch main view to overview");
+        switchMainView(new OverviewPanel());
     }
 
     private void switchToSingleInput() {
         System.out.println("switch main view to single input");
+        switchMainView(new SingleInputPanel());
     }
 
     private void switchToSettings() {
         System.out.println("switch main view to settings");
+        switchMainView(new SettingsPanel());
     }
 
     private void switchToProfile() {
         System.out.println("switch main view to profile");
+        switchMainView(new ProfilePanel());
     }
 
+    private void switchMainView(JPanel view) {
+        if(currentlyDisplayed != null) frame.remove(currentlyDisplayed);
+        frame.add(view, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+        currentlyDisplayed = view;
+    }
 
 }
